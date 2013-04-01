@@ -3,6 +3,7 @@ package com.northwoods.data;
 import static com.northwoods.data.DalConstants.*;
 
 import java.util.Calendar;
+import java.util.List;
 
 import com.northwoods.data.DalConstants.Tables;
 
@@ -160,10 +161,11 @@ public class SQLiteDAL {
 	}
 
 	public void insertDocument(long memberPK, long casePK,
-			String filePathColumnValue, long docTypeId) {
+			String filePathColumnValue, long docTypeId, List<String> fileNames) {
 
 		ContentValues values = new ContentValues();
-		values.put(PK_TRANS_DOCUMENT, getNewPKDocument());
+		long newPKDocument = getNewPKDocument();
+		values.put(PK_TRANS_DOCUMENT, newPKDocument);
 		values.put(FK_TRANS_MEMBER, memberPK);
 		values.put(FK_REF_DOCUMENT_TYPE, docTypeId);
 		values.put(FK_TRANS_CASE, casePK);
@@ -172,7 +174,19 @@ public class SQLiteDAL {
 		values.put(FK_EDITABLE_OBJECT,
 				GetMaxValue(Tables.EDITABLE_OBJECT, PK_EDITABLE_OBJECT));
 		values.put(FILE_PATH, filePathColumnValue);
+		insertFileNamesForDocument(newPKDocument, fileNames);
+
 		InsertTableValues(DalConstants.Tables.TRANS_DOCUMENT, values);
+	}
+
+	private void insertFileNamesForDocument(long newPKDocument,
+			List<String> fileNames) {
+		for (String string : fileNames) {
+			ContentValues values = new ContentValues();
+			values.put(FILE_NAME, string);
+			InsertTableValues(DalConstants.Tables.REF_FILE_NAME, values);
+		}
+
 	}
 
 	private void createEditableObject() {

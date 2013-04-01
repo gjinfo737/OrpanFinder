@@ -10,6 +10,7 @@ import android.database.Cursor;
 
 import com.northwoods.data.DalConstants.Tables;
 import com.northwoods.orphanfinder.IFinderDAL;
+import com.northwoods.orphanfinder.adapter.MediaTyper;
 
 public class FinderDAL implements IFinderDAL {
 
@@ -187,8 +188,20 @@ public class FinderDAL implements IFinderDAL {
 			String docTypeName) {
 		long docTypeId = getDocTypeId(docTypeName);
 		String filePathColumnValue = getFilePathColumnValue(file);
-		sqlite.insertDocument(memberPK, casePK, filePathColumnValue, docTypeId);
+		sqlite.insertDocument(memberPK, casePK, filePathColumnValue, docTypeId,
+				getFileNames(file));
 
+	}
+
+	private List<String> getFileNames(File file) {
+		List<String> fileNames = new ArrayList<String>();
+		File[] files = file.listFiles();
+		MediaTyper mediaTyper = new MediaTyper();
+		for (File f : files) {
+			if (mediaTyper.isMediaFile(f))
+				fileNames.add(f.getName());
+		}
+		return fileNames;
 	}
 
 	private String getFilePathColumnValue(File file) {

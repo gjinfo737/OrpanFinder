@@ -13,8 +13,14 @@ public class DalConstants {
 		public static final String JOIN_REF_EVENT_TYPE_CAPTURE_DOCUMENT_TYPE = "JoinRefEventTypeCaptureDocumentType";
 
 		public static final String EDITABLE_OBJECT = "EditableObject";
-
+		public static final String REF_FILE_NAME = "RefFileName";
 	}
+
+	public static final String PK_REF_FILE_NAME = "pkRefFileName";
+
+	public static final String FK_REF_FILE_NAME = "fkRefFileName";
+	public static final String FILE_NAME = "FileName";
+	public static final String FK_TRANS_DOCUMENT = "fkTransDocument";
 
 	public static final String SPEED = "Speed";
 

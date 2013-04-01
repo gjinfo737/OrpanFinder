@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MediaTyper {
+	public static final String _3GP = "3gp";
+	public static final String MP3 = "mp3";
+	public static final String WAV = "wav";
 	public static final String GIF = "gif";
 	public static final String PNG = "png";
 	public static final String JPG = "jpg";
@@ -35,11 +38,11 @@ public class MediaTyper {
 
 	private boolean isAudio(File directory) {
 
-		if (hasFileType(directory, "wav"))
+		if (hasFileType(directory, WAV))
 			return true;
-		if (hasFileType(directory, "mp3"))
+		if (hasFileType(directory, MP3))
 			return true;
-		if (hasFileType(directory, "3gp"))
+		if (hasFileType(directory, _3GP))
 			return true;
 
 		return false;
@@ -49,7 +52,7 @@ public class MediaTyper {
 		return getAllFilesWithExtension(directory, "." + extension).length > 0;
 	}
 
-	private File[] getAllFilesWithExtension(File directory, String extension) {
+	public File[] getAllFilesWithExtension(File directory, String extension) {
 		File[] allFiles = directory.listFiles();
 		List<File> fileList = new ArrayList<File>();
 		for (File file : allFiles) {
@@ -69,5 +72,14 @@ public class MediaTyper {
 				&& file.getName().contains(extension);
 
 		return isFeatureFile;
+	}
+
+	public boolean isMediaFile(File file) {
+		return isFileWithExtension(file, _3GP)
+				|| isFileWithExtension(file, MP3)
+				|| isFileWithExtension(file, WAV)
+				|| isFileWithExtension(file, JPG)
+				|| isFileWithExtension(file, GIF)
+				|| isFileWithExtension(file, PNG);
 	}
 }
