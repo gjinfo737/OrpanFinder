@@ -153,4 +153,10 @@ public class SQLiteDAL {
 		}
 	}
 
+	public void insertDocument(long memberPK, long casePK,
+			String filePathColumnValue, long docTypeId) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

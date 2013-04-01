@@ -182,4 +182,21 @@ public class FinderDAL implements IFinderDAL {
 	public boolean isOrphaned(File directory) {
 		return isOrphaned(directory.getAbsolutePath());
 	}
+
+	public void addDocumentRecord(File file, long memberPK, long casePK,
+			String docTypeName) {
+		long docTypeId = getDocTypeId(docTypeName);
+		String filePathColumnValue = getFilePathColumnValue(file);
+		sqlite.insertDocument(memberPK, casePK, filePathColumnValue, docTypeId);
+
+	}
+
+	private String getFilePathColumnValue(File file) {
+		String absolutePath = file.getAbsolutePath();
+		int indexOfHyphen = absolutePath.indexOf("-");
+		String value = absolutePath.substring(indexOfHyphen + 1);
+		int indexOfSepator = value.indexOf(File.separator);
+		value = value.substring(0, indexOfSepator);
+		return value;
+	}
 }

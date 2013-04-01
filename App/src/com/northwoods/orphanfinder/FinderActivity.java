@@ -216,13 +216,22 @@ public class FinderActivity extends Activity {
 				CoPilotObject item = (CoPilotObject) listView.getAdapter()
 						.getItem(position);
 				memberPK = item.getId();
-				ConfirmDialog.AlertDialog(FinderActivity.this,
+				ConfirmDialog.AlertDialog(
+						FinderActivity.this,
 						"Do you want to attach this document to this member?",
-						"Yes", "No", null, null, null);
+						"Yes",
+						"No",
+						getAttachRunnable(memberPK, casePK, eventTypePK,
+								currentlySelectedFile), null, null);
 			}
 			if (currentlySelectedFile != null)
 				refreshObjectList(currentlySelectedFile,
 						DocTyper.getDoctypeName(currentlySelectedFile));
+		}
+
+		private Runnable getAttachRunnable(long memberPK, long casePK,
+				long eventTypePK, File file) {
+			return new MediaAttacher(memberPK, casePK, file);
 		}
 	}
 }
