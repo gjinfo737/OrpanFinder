@@ -1,5 +1,11 @@
 package com.northwoods.data;
 
+import static com.northwoods.data.DalConstants.*;
+
+import java.util.Calendar;
+
+import com.northwoods.data.DalConstants.Tables;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -155,8 +161,41 @@ public class SQLiteDAL {
 
 	public void insertDocument(long memberPK, long casePK,
 			String filePathColumnValue, long docTypeId) {
-		// TODO Auto-generated method stub
 
+		ContentValues values = new ContentValues();
+		values.put(PK_TRANS_DOCUMENT, getNewPKDocument());
+		values.put(FK_TRANS_MEMBER, memberPK);
+		values.put(FK_REF_DOCUMENT_TYPE, docTypeId);
+		values.put(FK_TRANS_CASE, casePK);
+		createEditableObject();
+
+		values.put(FK_EDITABLE_OBJECT,
+				GetMaxValue(Tables.EDITABLE_OBJECT, PK_EDITABLE_OBJECT));
+		values.put(FILE_PATH, filePathColumnValue);
+		InsertTableValues(DalConstants.Tables.TRANS_DOCUMENT, values);
+	}
+
+	private void createEditableObject() {
+		ContentValues values = new ContentValues();
+		values.put(ACCURACY, 0);
+		values.put(ALTITUDE, 0);
+		values.put(BEARING, 0);
+		values.put(EDIT_STATE, "");
+		values.put(LATITUDE, 0);
+		values.put(LONGITUDE, 0);
+		values.put(SPEED, 0);
+		values.put(CREATE_DATE, Calendar.getInstance().getTime().toString());
+
+		InsertTableValues(Tables.EDITABLE_OBJECT, values);
+
+	}
+
+	private long getNewPKDocument() {
+		long getMinValue = GetMinValue(Tables.TRANS_DOCUMENT, PK_TRANS_DOCUMENT);
+		if (getMinValue < 0)
+			return getMinValue - 1;
+		else
+			return -1;
 	}
 
 }

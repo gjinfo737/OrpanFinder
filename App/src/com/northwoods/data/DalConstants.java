@@ -12,7 +12,24 @@ public class DalConstants {
 		public static final String JOIN_REF_EVENT_TYPE_AUDIO_DOCUMENT_TYPE = "JoinRefEventTypeAudioDocumentType";
 		public static final String JOIN_REF_EVENT_TYPE_CAPTURE_DOCUMENT_TYPE = "JoinRefEventTypeCaptureDocumentType";
 
+		public static final String EDITABLE_OBJECT = "EditableObject";
+
 	}
+
+	public static final String SPEED = "Speed";
+
+	public static final String LONGITUDE = "Longitude";
+
+	public static final String LATITUDE = "Latitude";
+
+	public static final String EDIT_STATE = "EditState";
+
+	public static final String BEARING = "Bearing";
+
+	public static final String ALTITUDE = "Altitude";
+
+	public static final String ACCURACY = "Accuracy";
+	public static final String CREATE_DATE = "CreateDate";
 
 	public static final String EQUALS = " = ";
 	public static final String WHERE = " where ";
@@ -46,4 +63,5 @@ public class DalConstants {
 	public static final String LAST_NAME = "LastName";
 
 	public static final String PK_REF_PROGRAM_TYPE = "pkRefProgramType";
+	public static final String PK_EDITABLE_OBJECT = "pkEditableObject";
 }
