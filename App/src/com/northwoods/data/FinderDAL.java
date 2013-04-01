@@ -195,8 +195,6 @@ public class FinderDAL implements IFinderDAL {
 		String absolutePath = file.getAbsolutePath();
 		int indexOfHyphen = absolutePath.indexOf("-");
 		String value = absolutePath.substring(indexOfHyphen + 1);
-		int indexOfSepator = value.indexOf(File.separator);
-		value = value.substring(0, indexOfSepator);
 		return value;
 	}
 }
